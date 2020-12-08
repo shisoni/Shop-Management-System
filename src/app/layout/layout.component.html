@@ -1,0 +1,218 @@
+<div style="text-align:center;">
+    <h3>Store Management System</h3>     
+</div>
+<p-tabView>
+    <p-tabPanel header="Manage Customers" [selected]="true">
+        <div class="card">
+            <!-- <p-toolbar styleClass="p-mb-4">
+                <ng-template pTemplate="left">
+                    <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success p-mr-2" ></button>
+                    <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger"></button>
+                </ng-template> </p-toolbar> -->
+                <div class="row menuStyle">
+                    <div style="float: left;">
+                        <button class="btn" (click)="openNewCustomer()"><i class="fa fa-plus"></i> Add Customer</button> &nbsp;
+                        <button class="btn"><i class="fa fa-trash"></i> Remove Customer</button>
+                    </div>
+                   
+                </div>
+        
+           
+            <p-table #dt1 [value]="customers" [rows]="10" [paginator]="true"
+                 [rowHover]="true" dataKey="id"
+                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [globalFilterFields]="['name','amount','transaction_date','address','item_purchased']" [showCurrentPageReport]="true">
+                <ng-template pTemplate="caption">
+                    
+                        <h5 style="float: left;margin: 0px;color: whitesmoke;font-size: 14px;">Customer Details</h5>
+                       <span style="float: right;">
+                           
+                            <input type="text" (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Search..." id="inputStyle"  />
+                        </span> 
+                       
+        
+                    
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 3rem">
+                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                        </th>
+                        <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
+                        <th pSortableColumn="address">Address <p-sortIcon field="address"></p-sortIcon></th>
+                        <th pSortableColumn="amount">Amount <p-sortIcon field="amount"></p-sortIcon></th>
+                        <th pSortableColumn="item_purchased">Item Purchased <p-sortIcon field="item_purchased"></p-sortIcon></th>
+                        <th pSortableColumn="transaction_date">Transaction Date<p-sortIcon field="transaction_date"></p-sortIcon></th>
+                        <th></th>
+                    </tr>
+                </ng-template>
+               <ng-template pTemplate="body" let-customer>
+                    <tr>
+                        <td>
+                            <p-tableCheckbox [value]="customer"></p-tableCheckbox>
+                        </td>
+                        <td>{{customer.name}}</td>
+                        <td>{{customer.address}}</td>
+                        <td>Rs.{{customer.amount}}</td>
+                        <td>{{customer.item_purchased}}</td>
+                        <td>{{customer.transaction_date}}</td>
+                       
+                       
+                        <td>
+                            <button class="btn" (click)="deleteProduct(product)"><i class="fa fa-trash"></i></button>
+                        </td>
+                    </tr>
+                </ng-template> 
+                <ng-template pTemplate="summary">
+                    <div class="p-d-flex p-ai-center p-jc-between">
+                        In total there are {{customers ? customers.length : 0 }} customers.
+                    </div>
+                </ng-template>
+            </p-table>
+            </div>
+    </p-tabPanel>
+    <p-tabPanel header="Manage Products" >
+        <div class="card">
+            <!-- <p-toolbar styleClass="p-mb-4">
+                <ng-template pTemplate="left">
+                    <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success p-mr-2" ></button>
+                    <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger"></button>
+                </ng-template> </p-toolbar> -->
+                <div class="row menuStyle">
+                    <div style="float: left;">
+                        <button class="btn" (click)="openNew()"><i class="fa fa-plus"></i> Add Product</button> &nbsp;
+                        <button class="btn"><i class="fa fa-trash"></i> Remove Product</button>
+                    </div>
+                   
+                </div>
+        
+           
+            <p-table #dt2 [value]="products" [rows]="10" [paginator]="true"
+                 [rowHover]="true" dataKey="id" [globalFilterFields]="['name','category','price']"
+                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+                <ng-template pTemplate="caption">
+                    
+                        <h5 style="float: left;margin: 0px;color: whitesmoke;font-size: 14px;">Products Details</h5>
+                       <span style="float: right;">
+                           
+                            <input type="text" (input)="dt2.filterGlobal($event.target.value, 'contains')" placeholder="Search..." id="inputStyle"  />
+                        </span> 
+                       
+        
+                    
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 3rem">
+                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                        </th>
+                        <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
+                        <th pSortableColumn="price">Price <p-sortIcon field="price"></p-sortIcon></th>
+                        <th pSortableColumn="category">Category <p-sortIcon field="category"></p-sortIcon></th>
+                        <th></th>
+                    </tr>
+                </ng-template>
+               <ng-template pTemplate="body" let-product>
+                    <tr>
+                        <td>
+                            <p-tableCheckbox [value]="product"></p-tableCheckbox>
+                        </td>
+                        <td>{{product.name}}</td>
+                        <td>Rs.{{product.price}}</td>
+                        <td>{{product.category}}</td>
+                       
+                       
+                        <td>
+                            <button class="btn" (click)="deleteProduct(product)"><i class="fa fa-trash"></i></button>
+                        </td>
+                    </tr>
+                </ng-template> 
+                <ng-template pTemplate="summary">
+                    <div class="p-d-flex p-ai-center p-jc-between">
+                        In total there are {{products ? products.length : 0 }} products.
+                    </div>
+                </ng-template>
+            </p-table>
+            </div>
+    </p-tabPanel>
+    
+</p-tabView>
+
+
+
+
+
+    
+
+    <p-dialog header="Product Details" [(visible)]="productDialog" [modal]="true" [style]="{width: '450px'}" [baseZIndex]="10000">
+        <form #myForm = "ngForm" [formGroup]="form" (ngSubmit)="saveProduct()" style="font-family:sans-serif;">
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" name="name" formControlName="name" class="form-control"required>
+             
+            </div>
+            <div class="form-group">
+              <label for="price">Price </label>
+              <input type="number" name="price" formControlName="price" class="form-control" mode="currency" currency="INR" locale="en-IN"  required>
+            </div>
+            <div class="form-group">
+                <label for="category">Category</label>
+                <input type="text"  name="category"  formControlName="category" class="form-control" required>
+            </div> 
+
+            <div style="float: right;">
+                <!--<button type="submit" [disabled]="!myForm.form.valid" class="btn btn-primary btn-sm float-left shopNow" style=" font-family: sans-serif;background-color: black;border-color:black; display: block;">Submit</button>-->
+                <button class="btn" (click)="hideDialog()"><i class="fa fa-times"></i> Cancel</button> &nbsp;
+                <button class="btn" [disabled]="!myForm.form.valid" type="submit"><i class="fa fa-check"></i> Save</button>
+            </div>
+            
+            
+          </form>
+    </p-dialog>
+
+
+    <p-dialog header="Customer Details" [(visible)]="customerDialog" [modal]="true" [style]="{width: '450px'}" [baseZIndex]="10000">
+        <form #myFormCustomer = "ngForm" [formGroup]="formCustomer" (ngSubmit)="saveCustomer()" style="font-family:sans-serif;">
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" name="name" formControlName="name" class="form-control"required>
+             
+            </div>
+            <div class="form-group">
+                <label for="address">Address </label>
+                <textarea name="address" formControlName="address" class="form-control" rows="4" cols="50" style="width: 417px;
+                height: 100px;"required></textarea>
+              </div>
+              
+            <div class="form-group">
+              <label for="item_purchased">Product Purchased </label>
+             
+                <select name="item_purchased" formControlName="item_purchased" class="form-control">
+                 <option *ngFor="let option of names" value="{{option.name}}">{{option.name}}</option>
+                </select>
+               
+              
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="amount">Amount</label>
+                    <input type="number"  name="amount"  formControlName="amount" class="form-control" required>
+                </div> 
+                <div class="col-md-6">
+                    <label for="transaction_date">Transaction Date</label>
+                    <input type="date"  name="transaction_date"  formControlName="transaction_date" class="form-control" required>
+                </div> 
+    
+            </div>
+            
+            <div style="float: right;">
+                <!--<button type="submit" [disabled]="!myForm.form.valid" class="btn btn-primary btn-sm float-left shopNow" style=" font-family: sans-serif;background-color: black;border-color:black; display: block;">Submit</button>-->
+                <button class="btn" (click)="hideCustomerDialog()"><i class="fa fa-times"></i> Cancel</button> &nbsp;
+                <button class="btn"   [disabled]="!myFormCustomer.form.valid" type="submit"><i class="fa fa-check"></i> Save</button>
+            </div>
+            
+            
+          </form>
+    </p-dialog>
+    
+    <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+    
